@@ -35,6 +35,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'httparty'
 gem 'multi_json'
 gem 'google-api-client', require: 'google/api_client'
+gem 'bootstrap-sass'
 
 group :development, :test do
   gem 'pry'

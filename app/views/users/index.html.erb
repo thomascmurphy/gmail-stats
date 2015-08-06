@@ -1,23 +1,36 @@
-<h1>Users</h1>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <h1>Users</h1>
 
-<table>
-  <tr>
-    <th>Image</th>
-    <th>Email</th>
-    <th>Name</th>
-    <th>Inbox Total</th>
-    <th>Inbox Unread</th>
-    <th>Inbox Not Responded</th>
-  </tr>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Image</th>
+            <th>Email</th>
+            <th>Name</th>
+            <th>Inbox Total</th>
+            <th>Inbox Unread</th>
+            <th>Inbox Not Responded</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @users.each do |user| %>
+            <tr>
+              <td><img src="<%= user.profile_image_url %>" alt="<%= user.full_name %>"/></td>
+              <td><%= user.email %></td>
+              <td><%= user.full_name %></td>
+              <td><%= user.inbox_total %></td>
+              <td><%= user.inbox_unread %></td>
+              <td><%= user.inbox_not_responded %></td>
+            </tr>
+          <% end %>
 
-  <% @users.each do |user| %>
-    <tr>
-      <td><img src="<%= user.profile_image_url %>" alt="<%= user.full_name %>"/></td>
-      <td><%= user.email %></td>
-      <td><%= user.full_name %></td>
-      <td><%= user.inbox_total %></td>
-      <td><%= user.inbox_unread %></td>
-      <td><%= user.inbox_not_responded %></td>
-    </tr>
-  <% end %>
-</table>
+          <tr>
+            <td colspan="6" class="text-right"><%= link_to 'New User', action: 'new', controller: 'users' %>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
