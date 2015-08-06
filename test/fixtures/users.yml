@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  email: MyString
+  first_name: MyString
+  last_name: MyString
+  inbox_total: 1
+  inbox_unread: 1
+  inbox_not_responded: 1
+  authentication_token: MyString
+  profile_image_url: MyString
+
+two:
+  email: MyString
+  first_name: MyString
+  last_name: MyString
+  inbox_total: 1
+  inbox_unread: 1
+  inbox_not_responded: 1
+  authentication_token: MyString
+  profile_image_url: MyString
