@@ -18,7 +18,6 @@
             <th>Name</th>
             <th>Inbox Total</th>
             <th>Inbox Unread</th>
-            <th>Inbox Not Responded</th>
             <th>Last Change</th>
           </tr>
         </thead>
@@ -30,13 +29,12 @@
               <td><%= user.full_name %></td>
               <td><%= user.inbox_total %></td>
               <td><%= user.inbox_unread %></td>
-              <td><%= user.inbox_not_responded %></td>
               <td><%= user.updated_at.localtime.strftime("%e %b %Y %k:%M") %></td>
             </tr>
           <% end %>
 
           <tr>
-            <td colspan="7" class="text-right"><%= link_to 'New User', action: 'new', controller: 'users' %>
+            <td colspan="6" class="text-right"><%= link_to 'New User', action: 'new', controller: 'users' %>
           </tr>
         </tbody>
       </table>
