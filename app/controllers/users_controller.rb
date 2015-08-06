@@ -2,6 +2,8 @@ class UsersController < ApplicationController
 
   def index
     @users = User.all
+    @updated_time = Time.now
+    @updated_time_string = @updated_time.strftime("%e %b %Y %k:%M")
     @users.each do |user|
       user.update_gmail_stats()
     end

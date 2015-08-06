@@ -1,9 +1,16 @@
 <div class="container">
   <div class="row">
     <div class="col-xs-12">
-      <h1>Users</h1>
+      <div class="row">
+        <div class="col-xs-6">
+          <h1>Users</h1>
+        </div>
+        <div class="col-xs-6 text-right" style="padding-top: 10px;">
+          <h4>Last Updated: <%= @updated_time_string %></h4>
+        </div>
+      </div>
 
-      <table class="table table-striped">
+      <table class="table table-striped" style="margin-top: 50px;">
         <thead>
           <tr>
             <th>Image</th>
@@ -12,6 +19,7 @@
             <th>Inbox Total</th>
             <th>Inbox Unread</th>
             <th>Inbox Not Responded</th>
+            <th>Last Change</th>
           </tr>
         </thead>
         <tbody>
@@ -23,11 +31,12 @@
               <td><%= user.inbox_total %></td>
               <td><%= user.inbox_unread %></td>
               <td><%= user.inbox_not_responded %></td>
+              <td><%= user.updated_at.localtime.strftime("%e %b %Y %k:%M") %></td>
             </tr>
           <% end %>
 
           <tr>
-            <td colspan="6" class="text-right"><%= link_to 'New User', action: 'new', controller: 'users' %>
+            <td colspan="7" class="text-right"><%= link_to 'New User', action: 'new', controller: 'users' %>
           </tr>
         </tbody>
       </table>
