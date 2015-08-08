@@ -23,4 +23,8 @@ jQuery(function($){
   $('.refresh_users').click(function(){
     $('#users_table').addClass('loading');
   });
+
+  $("#users_table").tablesorter({
+    sortList: [[1,0]]
+  });
 });

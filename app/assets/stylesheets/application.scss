@@ -81,3 +81,17 @@ $shader_white: rgba(255, 255, 255, 0.8);
      from {transform:rotate(0deg);}
      to {transform:rotate(360deg);}
  }
+
+ th.header{
+   cursor: pointer;
+ }
+
+ th.header.headerSortUp::after{
+   content: '\25BC';
+   margin-left: 5px;
+ }
+
+ th.header.headerSortDown::after{
+   content: '\25B2';
+   margin-left: 5px;
+ }
