@@ -82,6 +82,10 @@ $shader_white: rgba(255, 255, 255, 0.8);
      to {transform:rotate(360deg);}
  }
 
+ #users_table{
+   min-height: 500px;
+ }
+
  th.header{
    cursor: pointer;
  }

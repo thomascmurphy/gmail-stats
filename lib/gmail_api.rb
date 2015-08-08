@@ -11,8 +11,6 @@ class GmailApi
   #   self.class.get("/v1/users/#{@user_id}/labels/#{label_id}", @options)
   # end
 
-  DOMAIN = "bawte.com"
-
   def get_label(user_id, label_id)
     require 'google_api_base'
     google_api_base = GoogleApiBase.new()
@@ -29,9 +27,10 @@ class GmailApi
     google_api_base = GoogleApiBase.new()
     client = google_api_base.build_client_users(admin_email)
     gmail_api = client.discovered_api('admin', 'directory_v1')
+    domain = admin_email.split("@")[1]
     stats = client.execute!(
       :api_method => gmail_api.users.list,
-      :parameters => { :domain => DOMAIN })
+      :parameters => { :domain => domain })
     stats.data
   end
 
