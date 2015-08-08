@@ -24,7 +24,8 @@ class UsersController < ApplicationController
   end
 
   def refresh_users
-    @users = User.refresh_users()
+    current_admin
+    @users = User.refresh_users(current_admin.email)
     redirect_to action: "index"
   end
 

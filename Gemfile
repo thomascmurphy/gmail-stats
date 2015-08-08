@@ -36,6 +36,7 @@ gem 'httparty'
 gem 'multi_json'
 gem 'google-api-client', require: 'google/api_client'
 gem 'bootstrap-sass'
+gem 'devise'
 
 group :development, :test do
   gem 'pry'

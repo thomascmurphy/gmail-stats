@@ -27,11 +27,11 @@ class User < ActiveRecord::Base
     self.save()
   end
 
-  def self.refresh_users
+  def self.refresh_users(admin_email)
     require 'gmail_api'
     require 'gplus_api'
     gmail_api = GmailApi.new()
-    gmail_users = gmail_api.get_users()
+    gmail_users = gmail_api.get_users(admin_email)
     gmail_users.users.each do |gmail_user|
       user = User.find_or_create_by(email: gmail_user["primaryEmail"])
       user.first_name = gmail_user["name"]["givenName"]

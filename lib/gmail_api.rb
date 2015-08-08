@@ -24,10 +24,10 @@ class GmailApi
     stats.data
   end
 
-  def get_users()
+  def get_users(admin_email)
     require 'google_api_base'
     google_api_base = GoogleApiBase.new()
-    client = google_api_base.build_client_users()
+    client = google_api_base.build_client_users(admin_email)
     gmail_api = client.discovered_api('admin', 'directory_v1')
     stats = client.execute!(
       :api_method => gmail_api.users.list,
