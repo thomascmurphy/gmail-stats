@@ -1,7 +1,11 @@
 Rails.application.routes.draw do
   get 'home/index'
 
-  resources :users
+  resources :users do
+    collection do
+      get :refresh_users
+    end
+  end
 
   root 'users#index'
 

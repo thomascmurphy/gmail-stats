@@ -15,8 +15,8 @@ class User < ActiveRecord::Base
   def update_gmail_stats
     require 'gmail_api'
     require 'gplus_api'
-    gmail_api = GmailApi.new(self.email)
-    gmail_stats = gmail_api.get_label("INBOX")
+    gmail_api = GmailApi.new()
+    gmail_stats = gmail_api.get_label(self.email, "INBOX")
     self.inbox_total = gmail_stats["threadsTotal"]
     self.inbox_unread = gmail_stats["threadsUnread"]
 
@@ -25,6 +25,22 @@ class User < ActiveRecord::Base
     #self.profile_image_url = gplus_profile["image"]["url"]
 
     self.save()
+  end
+
+  def self.refresh_users
+    require 'gmail_api'
+    require 'gplus_api'
+    gmail_api = GmailApi.new()
+    gmail_users = gmail_api.get_users()
+    gmail_users.users.each do |gmail_user|
+      user = User.find_or_create_by(email: gmail_user["primaryEmail"])
+      user.first_name = gmail_user["name"]["givenName"]
+      user.last_name = gmail_user["name"]["familyName"]
+      user.profile_image_url = gmail_user["thumbnailPhotoUrl"]
+      user.save()
+      user.update_gmail_stats()
+    end
+    User.all()
   end
 
   private

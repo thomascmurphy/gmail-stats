@@ -10,7 +10,12 @@
         </div>
       </div>
 
-      <table class="table table-striped" style="margin-top: 50px;">
+      <div class="text-right">
+        <%= link_to 'New User', {controller: 'users', action: 'new'}, class: "btn btn-success" %>
+        <%= link_to 'Populate Users', {controller: 'users', action: 'refresh_users'}, class: "btn btn-primary disable_click refresh_users" %>
+      </div>
+
+      <table class="table table-striped" style="margin-top: 50px;" id="users_table">
         <thead>
           <tr>
             <th>Image</th>
@@ -24,7 +29,7 @@
         <tbody>
           <% @users.each do |user| %>
             <tr>
-              <td><img src="<%= user.profile_image_url %>" alt="<%= user.full_name %>"/></td>
+              <td><img src="<%= user.profile_image_url %>" class="img-rounded" alt="<%= user.full_name %>" style="max-width: 64px; max-height: 64px;"/></td>
               <td><%= user.email %></td>
               <td><%= user.full_name %></td>
               <td><%= user.inbox_total %></td>
@@ -32,10 +37,6 @@
               <td><%= user.updated_at.localtime.strftime("%e %b %Y %k:%M") %></td>
             </tr>
           <% end %>
-
-          <tr>
-            <td colspan="6" class="text-right"><%= link_to 'New User', action: 'new', controller: 'users' %>
-          </tr>
         </tbody>
       </table>
     </div>

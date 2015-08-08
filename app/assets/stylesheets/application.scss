@@ -17,3 +17,67 @@
  // "bootstrap-sprockets" must be imported before "bootstrap" and "bootstrap/variables"
  @import "bootstrap-sprockets";
  @import "bootstrap";
+
+$shader_white: rgba(255, 255, 255, 0.8);
+
+ .loading{
+     position: relative;
+     overflow: hidden !important;
+ }
+
+
+ .loading:before{
+     content:"";
+     display: block;
+     position: absolute;
+     top: 0;
+     right: 0;
+     bottom: 0;
+     left: 0;
+     z-index: 500;
+     background-color: $shader_white;
+ }
+
+ .loading:after{
+     content:"";
+     display: block;
+ 	position: absolute;
+ 	top: 50%;
+ 	left: 50%;
+ 	margin: -50px 0 0 -50px;
+ 	height: 100px;
+ 	width: 100px;
+ 	text-indent: 250px;
+ 	white-space: nowrap;
+ 	overflow: hidden;
+ 	-webkit-mask-image: url('/assets/spinner.png');
+ 	background-color: #000000;
+ 	animation-name: spinnerRotate;
+ 	animation-duration: 2s;
+ 	animation-iteration-count: infinite;
+ 	animation-timing-function: linear;
+
+ 	-moz-animation-name: spinnerRotate;
+ 	-moz-animation-duration: 2s;
+ 	-moz-animation-iteration-count: infinite;
+ 	-moz-animation-timing-function: linear;
+
+ 	-webkit-animation-name: spinnerRotate;
+ 	-webkit-animation-duration: 2s;
+ 	-webkit-animation-iteration-count: infinite;
+ 	-webkit-animation-timing-function: linear;
+ 	z-index: 501;
+ }
+
+ @-moz-keyframes spinnerRotate {
+     from { -moz-transform: rotate(0deg); }
+     to { -moz-transform: rotate(360deg); }
+ }
+ @-webkit-keyframes spinnerRotate {
+     from { -webkit-transform: rotate(0deg); }
+     to { -webkit-transform: rotate(360deg); }
+ }
+ @keyframes spinnerRotate {
+     from {transform:rotate(0deg);}
+     to {transform:rotate(360deg);}
+ }

@@ -23,6 +23,11 @@ class UsersController < ApplicationController
     end
   end
 
+  def refresh_users
+    @users = User.refresh_users()
+    redirect_to action: "index"
+  end
+
   private
   def user_params
     params.require(:user).permit(:email)

@@ -14,3 +14,13 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
+
+jQuery(function($){
+  $('a.disable_click').click(function(){
+    $(this).attr('disabled', 'disabled');
+  });
+
+  $('.refresh_users').click(function(){
+    $('#users_table').addClass('loading');
+  });
+});
