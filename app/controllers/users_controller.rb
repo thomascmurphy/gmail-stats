@@ -1,16 +1,27 @@
 class UsersController < ApplicationController
 
   def index
-    @users = User.all
-    @updated_time = Time.now
-    @updated_time_string = @updated_time.strftime("%e %b %Y %k:%M")
-    @users.each do |user|
-      user.update_gmail_stats()
+    if admin_signed_in?
+      @current_group = current_admin.user_group
+      @users = User.where(user_group: @current_group)
+      @updated_time = Time.now
+      @updated_time_string = @updated_time.strftime("%e %b %Y %k:%M")
+      @users.each do |user|
+        user.update_gmail_stats()
+      end
+    else
+      @users = []
     end
   end
 
   def new
-    @user = User.new
+    if admin_signed_in?
+      @current_group = current_admin.user_group
+      @user = User.new
+      @user.user_group = @current_group
+    else
+      @user = nil
+    end
   end
 
   def create
@@ -24,8 +35,7 @@ class UsersController < ApplicationController
   end
 
   def refresh_users
-    current_admin
-    @users = User.refresh_users(current_admin.email)
+    @users = User.refresh_users(current_admin)
     redirect_to action: "index"
   end
 

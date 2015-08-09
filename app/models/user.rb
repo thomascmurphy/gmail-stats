@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  belongs_to :user_group
   before_validation :downcase_email
   validates :email, :presence => true, :uniqueness => true, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, on: :create }
 
@@ -27,13 +28,14 @@ class User < ActiveRecord::Base
     self.save()
   end
 
-  def self.refresh_users(admin_email)
+  def self.refresh_users(admin)
     require 'gmail_api'
     require 'gplus_api'
     gmail_api = GmailApi.new()
-    gmail_users = gmail_api.get_users(admin_email)
+    gmail_users = gmail_api.get_users(admin.email)
     gmail_users.users.each do |gmail_user|
       user = User.find_or_create_by(email: gmail_user["primaryEmail"])
+      user.user_group = admin.user_group
       user.first_name = gmail_user["name"]["givenName"]
       user.last_name = gmail_user["name"]["familyName"]
       user.profile_image_url = gmail_user["thumbnailPhotoUrl"]
