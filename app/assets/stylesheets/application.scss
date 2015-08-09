@@ -50,7 +50,7 @@ $shader_white: rgba(255, 255, 255, 0.8);
  	text-indent: 250px;
  	white-space: nowrap;
  	overflow: hidden;
- 	-webkit-mask-image: url('/assets/spinner.png');
+ 	-webkit-mask-image: image-url("spinner.png");
  	background-color: #000000;
  	animation-name: spinnerRotate;
  	animation-duration: 2s;
