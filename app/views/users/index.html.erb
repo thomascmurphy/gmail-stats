@@ -1,7 +1,7 @@
 
 <div class="row">
   <div class="col-xs-6">
-    <h1><%= current_admin.user_group.name %> Users</h1>
+    <h1><%= @current_group.name %> Users</h1>
   </div>
   <div class="col-xs-6 text-right" style="padding-top: 10px;">
     <h4>Last Updated: <%= @updated_time_string %></h4>
@@ -11,7 +11,10 @@
 <div class="text-right">
   <%= link_to 'New User', {controller: 'users', action: 'new'}, class: "btn btn-success" %>
   <%= link_to 'Populate Users', {controller: 'users', action: 'refresh_users'}, class: "btn btn-primary disable_click refresh_users" %>
-  <%= link_to "Log Out", destroy_admin_session_path, method: :delete, class: "btn btn-danger disable_click" %>
+  <% if current_admin.superadmin? %>
+    <%= link_to 'Admins', {controller: 'admins', action: 'index'}, class: "btn btn-warning" %>
+  <% end %>
+  <%= link_to 'Log Out', destroy_admin_session_path, method: :delete, class: "btn btn-danger disable_click" %>
 </div>
 
 <table class="table table-striped" style="margin-top: 50px;" id="users_table">

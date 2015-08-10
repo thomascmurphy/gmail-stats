@@ -1,27 +1,27 @@
 class UsersController < ApplicationController
 
-  def index
-    if admin_signed_in?
-      @current_group = current_admin.user_group
-      @users = User.where(user_group: @current_group)
-      @updated_time = Time.now.localtime
-      @updated_time_string = @updated_time.strftime("%e %b %Y %k:%M")
-      @users.each do |user|
-        user.update_gmail_stats()
-      end
+  before_action :set_variables
+  def set_variables
+    if current_admin.impersonating_admin.present?
+      @current_group = current_admin.impersonating_admin.user_group
+      flash.now[:notice] = %Q[Impersonating #{current_admin.impersonating_admin.email}. <a href="/admins/stop_impersonation">Stop impersonation</a>].html_safe
     else
-      @users = []
+      @current_group = current_admin.user_group
+    end
+  end
+
+  def index
+    @users = User.where(user_group: @current_group)
+    @updated_time = Time.now.localtime
+    @updated_time_string = @updated_time.strftime("%e %b %Y %k:%M")
+    @users.each do |user|
+      user.update_gmail_stats()
     end
   end
 
   def new
-    if admin_signed_in?
-      @current_group = current_admin.user_group
-      @user = User.new
-      @user.user_group = @current_group
-    else
-      @user = nil
-    end
+    @user = User.new
+    @user.user_group = @current_group
   end
 
   def create
@@ -35,7 +35,11 @@ class UsersController < ApplicationController
   end
 
   def refresh_users
-    @users = User.refresh_users(current_admin)
+    if current_admin.impersonating_admin.present?
+      @users = User.refresh_users(current_admin.impersonating_admin)
+    else
+      @users = User.refresh_users(current_admin)
+    end
     redirect_to action: "index"
   end
 

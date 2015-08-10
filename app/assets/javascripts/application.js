@@ -27,4 +27,8 @@ jQuery(function($){
   $("#users_table").tablesorter({
     sortList: [[1,0]]
   });
+
+  $("#admins_table").tablesorter({
+    sortList: [[0,0]]
+  });
 });

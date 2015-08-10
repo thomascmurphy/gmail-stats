@@ -8,6 +8,13 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :admins do
+    collection do
+      post :impersonate
+      get :stop_impersonation
+    end
+  end
+
   root 'users#index'
 
   # The priority is based upon order of creation: first created -> highest priority.
