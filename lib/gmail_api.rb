@@ -30,7 +30,7 @@ class GmailApi
     domain = admin_email.split("@")[1]
     stats = client.execute!(
       :api_method => gmail_api.users.list,
-      :parameters => { :domain => domain })
+      :parameters => { :domain => domain, :maxResults => 500 })
     stats.data
   end
 
