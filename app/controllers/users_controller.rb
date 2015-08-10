@@ -4,7 +4,7 @@ class UsersController < ApplicationController
     if admin_signed_in?
       @current_group = current_admin.user_group
       @users = User.where(user_group: @current_group)
-      @updated_time = Time.now
+      @updated_time = Time.now.localtime
       @updated_time_string = @updated_time.strftime("%e %b %Y %k:%M")
       @users.each do |user|
         user.update_gmail_stats()
