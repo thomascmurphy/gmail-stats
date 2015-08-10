@@ -34,13 +34,20 @@ class User < ActiveRecord::Base
     gmail_api = GmailApi.new()
     gmail_users = gmail_api.get_users(admin.email)
     gmail_users.users.each do |gmail_user|
-      user = User.find_or_create_by(email: gmail_user["primaryEmail"])
-      user.user_group = admin.user_group
-      user.first_name = gmail_user["name"]["givenName"]
-      user.last_name = gmail_user["name"]["familyName"]
-      user.profile_image_url = gmail_user["thumbnailPhotoUrl"]
-      user.save()
-      user.update_gmail_stats()
+      if gmail_user["suspended"]
+        user = User.find_by(email: gmail_user["primaryEmail"])
+        if user.present?
+          user.delete()
+        end
+      else
+        user = User.find_or_create_by(email: gmail_user["primaryEmail"])
+        user.user_group = admin.user_group
+        user.first_name = gmail_user["name"]["givenName"]
+        user.last_name = gmail_user["name"]["familyName"]
+        user.profile_image_url = gmail_user["thumbnailPhotoUrl"]
+        user.save()
+        user.update_gmail_stats()
+      end
     end
     User.all()
   end

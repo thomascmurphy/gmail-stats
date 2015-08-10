@@ -37,6 +37,7 @@ gem 'multi_json'
 gem 'google-api-client', require: 'google/api_client'
 gem 'bootstrap-sass'
 gem 'devise'
+gem 'local_time'
 
 group :development, :test do
   gem 'pry'
