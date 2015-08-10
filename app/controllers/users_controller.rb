@@ -12,11 +12,6 @@ class UsersController < ApplicationController
 
   def index
     @users = User.where(user_group: @current_group)
-    @updated_time = Time.now.localtime
-    @updated_time_string = @updated_time.strftime("%e %b %Y %k:%M")
-    @users.each do |user|
-      user.update_gmail_stats()
-    end
   end
 
   def new
@@ -35,10 +30,20 @@ class UsersController < ApplicationController
   end
 
   def refresh_users
+    @users = User.where(user_group: @current_group)
+    @current_group.last_update = Time.now
+    @current_group.save()
+    @users.each do |user|
+      user.update_gmail_stats()
+    end
+    redirect_to action: "index"
+  end
+
+  def populate_users
     if current_admin.impersonating_admin.present?
-      @users = User.refresh_users(current_admin.impersonating_admin)
+      @users = User.populate_users(current_admin.impersonating_admin)
     else
-      @users = User.refresh_users(current_admin)
+      @users = User.populate_users(current_admin)
     end
     redirect_to action: "index"
   end

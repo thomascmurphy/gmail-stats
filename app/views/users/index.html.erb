@@ -4,16 +4,17 @@
     <h1><%= @current_group.name %> Users</h1>
   </div>
   <div class="col-xs-6 text-right" style="padding-top: 10px;">
-    <h4>Last Updated: <%= @updated_time_string %></h4>
+    <h4>Last Updated: <%= @current_group.last_update.localtime.strftime("%e %b %Y %k:%M") %></h4>
   </div>
 </div>
 
 <div class="text-right">
-  <%= link_to 'New User', {controller: 'users', action: 'new'}, class: "btn btn-success" %>
-  <%= link_to 'Populate Users', {controller: 'users', action: 'refresh_users'}, class: "btn btn-primary disable_click refresh_users" %>
   <% if current_admin.superadmin? %>
     <%= link_to 'Admins', {controller: 'admins', action: 'index'}, class: "btn btn-warning" %>
   <% end %>
+  <%= link_to 'Refresh Stats', {controller: 'users', action: 'refresh_users'}, class: "btn btn-info disable_click refresh_users" %>
+  <%= link_to 'Populate Users', {controller: 'users', action: 'populate_users'}, class: "btn btn-primary disable_click refresh_users" %>
+  <%= link_to 'New User', {controller: 'users', action: 'new'}, class: "btn btn-success" %>
   <%= link_to 'Log Out', destroy_admin_session_path, method: :delete, class: "btn btn-danger disable_click" %>
 </div>
 

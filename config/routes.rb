@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   resources :users do
     collection do
       get :refresh_users
+      get :populate_users
     end
   end
 

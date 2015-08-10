@@ -15,7 +15,7 @@
 //= require turbolinks
 //= require_tree .
 
-jQuery(function($){
+$(document).on('ready page:load', function() {
   $('a.disable_click').click(function(){
     $(this).attr('disabled', 'disabled');
   });

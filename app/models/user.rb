@@ -28,7 +28,7 @@ class User < ActiveRecord::Base
     self.save()
   end
 
-  def self.refresh_users(admin)
+  def self.populate_users(admin)
     require 'gmail_api'
     require 'gplus_api'
     gmail_api = GmailApi.new()
