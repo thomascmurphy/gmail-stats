@@ -4,7 +4,9 @@
     <h1><%= @current_group.name %> Users</h1>
   </div>
   <div class="col-xs-6 text-right" style="padding-top: 10px;">
-    <h4>Last Updated: <%= local_time(@current_group.last_update, format: "%e %b %Y %l:%M") %></h4>
+    <% if @current_group.last_update %>
+      <h4>Last Updated: <%= local_time(@current_group.last_update, format: "%e %b %Y %l:%M") %></h4>
+    <% end %>
   </div>
 </div>
 
