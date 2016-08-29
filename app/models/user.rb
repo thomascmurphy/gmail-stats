@@ -17,10 +17,13 @@ class User < ActiveRecord::Base
     require 'gmail_api'
     require 'gplus_api'
     gmail_api = GmailApi.new()
-    gmail_stats = gmail_api.get_label(self.email, "INBOX")
-    self.inbox_total = gmail_stats["threadsTotal"]
-    self.inbox_unread = gmail_stats["threadsUnread"]
-
+    begin
+      gmail_stats = gmail_api.get_label(self.email, "INBOX")
+      self.inbox_total = gmail_stats["threadsTotal"]
+      self.inbox_unread = gmail_stats["threadsUnread"]
+    rescue => ex
+      Rails.logger.error ex.message
+    end
     #gplus_api = GplusApi.new(self.email)
     #gplus_profile = gplus_api.get_profile()
     #self.profile_image_url = gplus_profile["image"]["url"]

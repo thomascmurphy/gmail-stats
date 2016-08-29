@@ -21,6 +21,7 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
+    @user.user_group = @current_group
 
     if @user.save
       redirect_to action: "index"
